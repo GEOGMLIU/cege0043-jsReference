@@ -18,3 +18,10 @@ function startup()
 function loadW3HTML() {
 	w3.includeHTML();
 }
+
+function quizStartup(){
+	
+}
+
+function questionStartup(){
+}
