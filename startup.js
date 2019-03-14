@@ -1,18 +1,25 @@
 function trackAndCircle()
 {
-	trackLocation();
-	addPointLinePoly();
+	//trackLocation();
+	alert("trackAndCircle1");
+	//addPointLinePoly();
 	//getEarthquakes();
-	popupClickLocation();
+	//popupClickLocation();
+	alert("trackAndCircle2");	
+	//getPort();
+	alert("trackAndCircle3");
+	loadW3HTML();
+	//alert("trackAndCircle4");
+	startFormDataLoad();
 }
 
 function startup()
 {
+	//alert("startup1");
 	document.addEventListener('DOMContentLoaded', function(){
 		trackAndCircle();
 	}, false);
-	getPort();
-	loadW3HTML();
+
 }
 
 function loadW3HTML() {
@@ -24,4 +31,12 @@ function quizStartup(){
 }
 
 function questionStartup(){
+}
+
+function a1(){
+alert("a1111111111");
+}
+
+function a2(){
+alert("a2222222222");
 }

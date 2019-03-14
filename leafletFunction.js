@@ -2,6 +2,7 @@ var client;
 var earthquakes;
 var earthquakelayer;
 var busstoplayer;
+var xhrFormData;
 
 function addPointLinePoly()
 {
@@ -191,3 +192,48 @@ function popupClickLocation()
 	// now add the click event detector to the map
 	mymap.on('click', onMapClick);
 }
+
+function startFormDataLoad() {
+	alert("startFormDataLoad1");
+	xhrFormData = new XMLHttpRequest();
+	var url = "http://developer.cege.ucl.ac.uk:"+httpPortNumber;
+	//url = url + "getGeoJSON/united_kingdom_poi/geom";
+	url = url + "/getFormData/"+httpPortNumber;
+	//url = url + "/getGeoJSON/formdata/geom/"+httpPortNumber;
+	//url="http://developer.cege.ucl.ac.uk:30289/getFormData/30289";
+	alert(url);
+	xhrFormData.open("GET", url, true);
+	xhrFormData.onreadystatechange = formDataResponse;
+	xhrFormData.send();
+}
+function formDataResponse(){
+	alert("formDataResponse");
+	if (xhrFormData.readyState == 4) {
+	// once the data is ready, process the data
+		var formData = xhrFormData.responseText;
+		alert(formData);
+		document.getElementById("divForm").innerHTML = formData;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

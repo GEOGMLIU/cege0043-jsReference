@@ -1,7 +1,10 @@
 var httpPortNumber;
 var httpsPortNumber;
+
+
 function getPort()
 {
+	alert("heeeeeeeeeeeeey")
 	var xhr = new XMLHttpRequest();
 	xhr.addEventListener("load", function () {
 		var parser = new DOMParser();
@@ -9,11 +12,14 @@ function getPort()
 		httpPortNumber= doc.getElementsByTagName("node-port-http").item(0).textContent;
 		httpsPortNumber= doc.getElementsByTagName("node-port-https").item(0).textContent;
 		alert("Port : " + httpPortNumber);
+		alert("h22222222222222y")
 		});
+		alert("h333333333333y")
 	// depending on whether we are in a browser or on a phone
 	// the location of the config file is different
 	// if we are on a phone then http and https won't be present
 	var configLocation = "res/port.xml";
 	xhr.open("get", configLocation, true);
 	xhr.send();
+	alert("h44444444444y")
 }
