@@ -1,11 +1,12 @@
+var client; // the global variable that holds the request
 function startDataUpload() {
 	alert ("start data upload");
 	var name = document.getElementById("name").value;
 	var surname = document.getElementById("surname").value;
-	var moduletitle = document.getElementById("moduletitle").value;
+	var module = document.getElementById("module").value;
 	var latitude = document.getElementById("latitude").value;
 	var longitude = document.getElementById("longitude").value;
-	var postString = "name="+ name +"&surname="+surname+"&moduletitle="+moduletitle
+	var postString = "name="+ name +"&surname="+surname+"&module="+module
 	+"&latitude="+ latitude+"&longitude="+longitude;
 	
 	// now get the checkbox values - separate them with a | so that they can be
@@ -31,11 +32,13 @@ function startDataUpload() {
 	processData(postString);
 }
 
-var client; // the global variable that holds the request
+
 function processData(postString) {
+	alert("processData1");
 	client = new XMLHttpRequest();
 	postString = postString + "&port_id=" + httpPortNumber;
 	var url = 'http://developer.cege.ucl.ac.uk:'+ httpPortNumber + "/uploadData";
+	alert(url);
 	client.open('POST',url,true);
 	//client.open('POST','http://developer.cege.ucl.ac.uk:30289/reflectData',true);
 	client.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -48,6 +51,7 @@ function dataUploaded() {
 	// this function listens out for the server to say that the data is ready - i.e. has state 4
 	if (client.readyState == 4) {
 		// change the DIV to show the response
+		alert(client.responseText);
 		document.getElementById("dataUploadResult").innerHTML = client.responseText;
 	}
 }
