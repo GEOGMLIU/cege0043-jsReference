@@ -198,9 +198,9 @@ function startFormDataLoad() {
 	xhrFormData = new XMLHttpRequest();
 	var url = "http://developer.cege.ucl.ac.uk:"+httpPortNumber;
 	//url = url + "getGeoJSON/united_kingdom_poi/geom";
-	url = url + "/getFormData/"+httpPortNumber;
-	//url = url + "/getGeoJSON/formdata/geom/"+httpPortNumber;
-	//url="http://developer.cege.ucl.ac.uk:30289/getFormData/30289";
+	//url = url + "/getFormData/"+httpPortNumber;
+	//url = url + "/getGeoJSON/united_kingdom_poi/geom";
+	url="http://developer.cege.ucl.ac.uk:30289/getFormData/30289";
 	alert(url);
 	xhrFormData.open("GET", url, true);
 	xhrFormData.onreadystatechange = formDataResponse;

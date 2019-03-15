@@ -1,27 +1,25 @@
-function trackAndCircle()
-{
+function trackAndCircle(){
 	//trackLocation();
-	alert("trackAndCircle1");
 	//addPointLinePoly();
 	//getEarthquakes();
 	//popupClickLocation();
-	alert("trackAndCircle2");	
-	//getPort();
-	alert("trackAndCircle3");
-	loadW3HTML();
-	//alert("trackAndCircle4");
-	startFormDataLoad();
+	getPort();
+	//loadForm();
+	loadW3HTML();	
 }
 
-function startup()
-{
+function startup(){
 	//alert("startup1");
 	document.addEventListener('DOMContentLoaded', function(){
 		trackAndCircle();
 	}, false);
-
+	//startFormDataLoad();
 }
 
+
+function loadForm() {
+	startFormDataLoad();
+}
 function loadW3HTML() {
 	w3.includeHTML();
 }
