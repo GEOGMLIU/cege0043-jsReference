@@ -1,5 +1,6 @@
 var client; // the global variable that holds the request
 function startDataUpload() {
+	getPort();
 	alert ("start data upload");
 	var name = document.getElementById("name").value;
 	var surname = document.getElementById("surname").value;

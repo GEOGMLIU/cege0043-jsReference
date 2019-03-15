@@ -194,24 +194,21 @@ function popupClickLocation()
 }
 
 function startFormDataLoad() {
-	alert("startFormDataLoad1");
 	xhrFormData = new XMLHttpRequest();
 	var url = "http://developer.cege.ucl.ac.uk:"+httpPortNumber;
-	//url = url + "getGeoJSON/united_kingdom_poi/geom";
-	//url = url + "/getFormData/"+httpPortNumber;
+	url = url + "/getFormData/"+httpPortNumber;
 	//url = url + "/getGeoJSON/united_kingdom_poi/geom";
-	url="http://developer.cege.ucl.ac.uk:30289/getFormData/30289";
+	//url="http://developer.cege.ucl.ac.uk:30289/getFormData/30289";
 	alert(url);
 	xhrFormData.open("GET", url, true);
 	xhrFormData.onreadystatechange = formDataResponse;
 	xhrFormData.send();
 }
 function formDataResponse(){
-	alert("formDataResponse");
+	//alert("formDataResponse");
 	if (xhrFormData.readyState == 4) {
 	// once the data is ready, process the data
 		var formData = xhrFormData.responseText;
-		alert(formData);
 		document.getElementById("divForm").innerHTML = formData;
 	}
 }
