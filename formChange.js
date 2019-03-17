@@ -13,6 +13,7 @@ function changeLatlng(){
 
 function loadQuizPoint() 
 {
+	getPort();
 	alert("Quiz Points data will be loaded");
 	startFormDataLoad();
 }
@@ -24,7 +25,6 @@ function removeQuizPoint()
 }	
 	
 function startFormDataLoad() {
-	getPort();
 	xhrFormData = new XMLHttpRequest();
 	var url = "http://developer.cege.ucl.ac.uk:"+httpPortNumber;
 	url = url + "/getQuizPoints/"+httpPortNumber;
