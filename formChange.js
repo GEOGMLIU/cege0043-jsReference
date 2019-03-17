@@ -1,4 +1,4 @@
-var poiLayer;
+var QuizPointLayer;
 var xhrFormData;
 
 
@@ -11,6 +11,18 @@ function changeLatlng(){
 	document.getElementById("longitude").value=clickinglng.toFixed(6);
 }
 
+function loadQuizPoint() 
+{
+	alert("Quiz Points data will be loaded");
+	startFormDataLoad();
+}
+
+function removeQuizPoint() 
+{
+	alert("Quiz Points data will be removed");
+	mymap.removeLayer(QuizPointLayer);
+}	
+	
 function startFormDataLoad() {
 	getPort();
 	xhrFormData = new XMLHttpRequest();
@@ -37,6 +49,6 @@ function formDataResponse(){
 function loadForm(formData){
 	//alert("formDataResponsed");
 	var json = JSON.parse(formData);
-	poiLayer = L.geoJson(json).addTo(mymap);
-	mymap.fitBounds(poiLayer.getBounds());
+	QuizPointLayer = L.geoJson(json).addTo(mymap);
+	mymap.fitBounds(QuizPointLayer.getBounds());
 }
