@@ -3,33 +3,82 @@ var client; // the global variable that holds the request
 
 function startDataUpload() {
 	getPort();
-	alert ("start data upload");
+	//alert ("start data upload");
 	completeform:{
 		var question_title = document.getElementById("question_title").value;
 		var question_text = document.getElementById("question_text").value;
-		if (question_text==0){
-			alert("Please type in the question text!");
-			break completeform;
-		}
+
 		var answer_1 = document.getElementById("answer_1").value;
 		var answer_2 = document.getElementById("answer_2").value;
 		var answer_3 = document.getElementById("answer_3").value;
 		var answer_4 = document.getElementById("answer_4").value;
 		var correct_answer = document.getElementById("correct_answer").value;
+
 		var latitude = document.getElementById("latitude").value;
 		var longitude = document.getElementById("longitude").value;
-		console.log(typeof latitude);
-		//users have to enter vaild latlng
-		if ((typeof latitude==='number')&& (typeof longitude==='number')){
-			if ((latitude<=-90&&latitude>=90)&&(longitude<=-180&&longitude>=180)){
-				alert("Please enter the vaild latitude and longitude or click on the map to get the latlng!");
+	
+		//all the required fields cannot be full
+		if (question_title==undefined){
+			alert("Please type in the question title!");
+			break completeform;
+		}
+		if (question_text==undefined){
+			alert("Please type in the question text!");
+			break completeform;
+		}
+		if (answer_1==undefined){
+			alert("Please type in the answer_1!");
+			break completeform;
+		}
+		if (answer_2==undefined){
+			alert("Please type in the answer_2!");
+			break completeform;
+		}
+		if (answer_3==undefined){
+			alert("Please type in the answer_3!");
+			break completeform;
+		}
+		if (answer_4==undefined){
+			alert("Please type in the answer_4!");
+			break completeform;
+		}
+		//need to type in a number between 1-4 for the correct answer field
+		if(correct_answer==1||correct_answer==2||correct_answer==3||correct_answer==4){
+		}
+		else{
+				alert("Please enter the vaild correct answer!");
 				break completeform;
-			}
+		}
+		//users have to enter vaild latlng
+		if ((latitude>=-90&&latitude<=90)&&(longitude>=-180&&longitude<=180)){
 		}
 		else{
 				alert("Please enter the vaild latitude and longitude or click on the map to get the latlng!");
 				break completeform;
 		}
+		//RegExp to find if there is any character NOT between -180 and 180)
+		var regDec=/^(-?\d+\.)?-?\d+$/;
+		console.log(regDec.test(latitude));
+		console.log(regDec.test(longitude));
+
+		if(regDec.test(latitude)&&regDec.test(longitude)){
+			alert("gg");
+		}
+		else{
+				alert("Please enter the vaild latitude and longitude or click on the map to get the latlng!");
+				break completeform;
+		}
+		/*
+		var regDec=/^(\d+\.?\d{0,9}|\.\d{1,9})$/ ;
+		var regNum=/^\d+$/;
+		var regNagNum=/^(\-(\d*))$/;
+		if((regNum.test(latitude)||regNagNum.test(latitude))&&(regNum.test(longitude)||regNagNum.test(longitude))){
+		}
+		else{
+				alert("Please enter the vaild latitude and longitude or click on the map to get the latlng!");
+				break completeform;
+		}
+		*/
 		var postString = "question_title="+ question_title +"&question_text="+question_text+"&answer_1="+answer_1
 		+"&answer_2="+answer_2+"&answer_3="+answer_3+"&answer_4="+answer_4+"&correct_answer="+correct_answer+"&latitude="+ latitude+"&longitude="+longitude;
 		alert (postString);
