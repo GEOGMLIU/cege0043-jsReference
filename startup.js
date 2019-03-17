@@ -19,8 +19,7 @@ function loadW3HTML() {
 
 function quizStartup(){
 	alert("quizStartup!");
-	getPort();
-	//loadQuizPoint();
+	loadQuizPoint();
 }
 
 function questionStartup(){
