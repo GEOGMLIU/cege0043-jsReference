@@ -12,13 +12,12 @@ function changeLatlng(){
 }
 
 function startFormDataLoad() {
-	//alert("loading...1");
 	getPort();
 	xhrFormData = new XMLHttpRequest();
 	var url = "http://developer.cege.ucl.ac.uk:"+httpPortNumber;
-	//url = url + "/getFormData/"+httpPortNumber;
+	url = url + "/getQuizPoints/"+httpPortNumber;
 	//url = url + "/getGeoJSON/formdata/geom/"+httpPortNumber;
-	url = url + "/getGeoJSON/london_poi/geom";
+	//url = url + "/getGeoJSON/london_poi/geom";
 	alert(url);
 	xhrFormData.open("GET", url, true);
 	xhrFormData.onreadystatechange = formDataResponse;

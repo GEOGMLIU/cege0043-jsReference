@@ -9,6 +9,13 @@ function startDataUpload() {
 		var question_text = document.getElementById("question_text").value;
 
 		var answer_1 = document.getElementById("answer_1").value;
+		/*
+		if(answer_1)
+			console.log("not NULL");
+		else
+			console.log("NULL");
+		console.log(answer_1);
+		*/
 		var answer_2 = document.getElementById("answer_2").value;
 		var answer_3 = document.getElementById("answer_3").value;
 		var answer_4 = document.getElementById("answer_4").value;
@@ -18,27 +25,39 @@ function startDataUpload() {
 		var longitude = document.getElementById("longitude").value;
 	
 		//all the required fields cannot be full
-		if (question_title==undefined){
+		if (question_title){
+		}
+		else{			
 			alert("Please type in the question title!");
 			break completeform;
 		}
-		if (question_text==undefined){
+		if (question_text){
+		}
+		else{		
 			alert("Please type in the question text!");
 			break completeform;
 		}
-		if (answer_1==undefined){
+		if (answer_1){
+		}
+		else{
 			alert("Please type in the answer_1!");
 			break completeform;
 		}
-		if (answer_2==undefined){
+		if (answer_2){
+		}
+		else{
 			alert("Please type in the answer_2!");
 			break completeform;
 		}
-		if (answer_3==undefined){
+		if (answer_3){
+		}
+		else{
 			alert("Please type in the answer_3!");
 			break completeform;
 		}
-		if (answer_4==undefined){
+		if (answer_4){
+		}
+		else{
 			alert("Please type in the answer_4!");
 			break completeform;
 		}
@@ -46,15 +65,15 @@ function startDataUpload() {
 		if(correct_answer==1||correct_answer==2||correct_answer==3||correct_answer==4){
 		}
 		else{
-				alert("Please enter the vaild correct answer!");
-				break completeform;
+			alert("Please enter the vaild correct answer!");
+			break completeform;
 		}
 		//users have to enter vaild latlng
 		if ((latitude>=-90&&latitude<=90)&&(longitude>=-180&&longitude<=180)){
 		}
 		else{
-				alert("Please enter the vaild latitude and longitude or click on the map to get the latlng!");
-				break completeform;
+			alert("Please enter the vaild latitude and longitude or click on the map to get the latlng!");
+			break completeform;
 		}
 		//RegExp to find if there is any character NOT between -180 and 180)
 		var regDec=/^(-?\d+\.)?-?\d+$/;
@@ -62,27 +81,15 @@ function startDataUpload() {
 		console.log(regDec.test(longitude));
 
 		if(regDec.test(latitude)&&regDec.test(longitude)){
-			alert("gg");
 		}
 		else{
-				alert("Please enter the vaild latitude and longitude or click on the map to get the latlng!");
-				break completeform;
+			alert("Please enter the vaild latitude and longitude or click on the map to get the latlng!");
+			break completeform;
 		}
-		/*
-		var regDec=/^(\d+\.?\d{0,9}|\.\d{1,9})$/ ;
-		var regNum=/^\d+$/;
-		var regNagNum=/^(\-(\d*))$/;
-		if((regNum.test(latitude)||regNagNum.test(latitude))&&(regNum.test(longitude)||regNagNum.test(longitude))){
-		}
-		else{
-				alert("Please enter the vaild latitude and longitude or click on the map to get the latlng!");
-				break completeform;
-		}
-		*/
 		var postString = "question_title="+ question_title +"&question_text="+question_text+"&answer_1="+answer_1
 		+"&answer_2="+answer_2+"&answer_3="+answer_3+"&answer_4="+answer_4+"&correct_answer="+correct_answer+"&latitude="+ latitude+"&longitude="+longitude;
 		alert (postString);
-		//processData(postString);
+		processData(postString);
 	}
 }
 
