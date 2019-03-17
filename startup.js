@@ -1,6 +1,6 @@
 function trackAndCircle(){
 	//trackLocation();
-	addPointLinePoly();
+	//addPointLinePoly();
 	//getEarthquakes();
 	popupClickLocation();
 	getPort();

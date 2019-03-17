@@ -1,22 +1,40 @@
 var client; // the global variable that holds the request
+
+
 function startDataUpload() {
 	getPort();
 	alert ("start data upload");
-	var question_title = document.getElementById("question_title").value;
-	var question_text = document.getElementById("question_text").value;
-	var answer_1 = document.getElementById("answer_1").value;
-	var answer_2 = document.getElementById("answer_2").value;
-	var answer_3 = document.getElementById("answer_3").value;
-	var answer_4 = document.getElementById("answer_4").value;
-	var correct_answer = document.getElementById("correct_answer").value;
-	var latitude = document.getElementById("latitude").value;
-	var longitude = document.getElementById("longitude").value;
-	
-	
-	var postString = "question_title="+ question_title +"&question_text="+question_text+"&answer_1="+answer_1
-	+"&answer_2="+answer_2+"&answer_3="+answer_3+"&answer_4="+answer_4+"&correct_answer="+correct_answer+"&latitude="+ latitude+"&longitude="+longitude;
-	alert (postString);
-	processData(postString);
+	completeform:{
+		var question_title = document.getElementById("question_title").value;
+		var question_text = document.getElementById("question_text").value;
+		if (question_text==0){
+			alert("Please type in the question text!");
+			break completeform;
+		}
+		var answer_1 = document.getElementById("answer_1").value;
+		var answer_2 = document.getElementById("answer_2").value;
+		var answer_3 = document.getElementById("answer_3").value;
+		var answer_4 = document.getElementById("answer_4").value;
+		var correct_answer = document.getElementById("correct_answer").value;
+		var latitude = document.getElementById("latitude").value;
+		var longitude = document.getElementById("longitude").value;
+		console.log(typeof latitude);
+		//users have to enter vaild latlng
+		if ((typeof latitude==='number')&& (typeof longitude==='number')){
+			if ((latitude<=-90&&latitude>=90)&&(longitude<=-180&&longitude>=180)){
+				alert("Please enter the vaild latitude and longitude or click on the map to get the latlng!");
+				break completeform;
+			}
+		}
+		else{
+				alert("Please enter the vaild latitude and longitude or click on the map to get the latlng!");
+				break completeform;
+		}
+		var postString = "question_title="+ question_title +"&question_text="+question_text+"&answer_1="+answer_1
+		+"&answer_2="+answer_2+"&answer_3="+answer_3+"&answer_4="+answer_4+"&correct_answer="+correct_answer+"&latitude="+ latitude+"&longitude="+longitude;
+		alert (postString);
+		//processData(postString);
+	}
 }
 
 
