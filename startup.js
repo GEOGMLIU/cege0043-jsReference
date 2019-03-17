@@ -2,7 +2,7 @@ function trackAndCircle(){
 	//trackLocation();
 	//addPointLinePoly();
 	//getEarthquakes();
-	popupClickLocation();
+	
 	getPort();
 	loadW3HTML();	
 }
@@ -22,4 +22,5 @@ function quizStartup(){
 }
 
 function questionStartup(){
+	popupClickLocation();
 }
