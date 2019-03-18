@@ -23,7 +23,7 @@ function removeQuizPoint()
 	alert("Quiz Points data will be removed");
 	mymap.removeLayer(QuizPointLayer);
 }	
-	
+
 function startFormDataLoad() {
 	xhrFormData = new XMLHttpRequest();
 	var url = "http://developer.cege.ucl.ac.uk:"+httpPortNumber;
@@ -40,8 +40,8 @@ function startFormDataLoad() {
 function formDataResponse(){
 	if (xhrFormData.readyState == 4) {
 	// once the data is ready, process the data
-		var formData = xhrFormData.responseText;
-		loadFormData(formData);
+	var formData = xhrFormData.responseText;
+	loadFormData(formData);
 		//document.getElementById("divForm").innerHTML = formData;
 	}
 }
@@ -64,7 +64,7 @@ function loadFormData(formData) {
 	{
 		// use point to layer to create the points
 		pointToLayer: function (feature, latlng)
-			{
+		{
 				// in this case, we build an HTML DIV string
 				// using the values in the data
 				var htmlString = "<DIV id='popup'"+ feature.properties.question_title + "><h2>" + feature.properties.question_title + "</h2><br>";
@@ -79,24 +79,42 @@ function loadFormData(formData) {
 				// for the assignment this will of course vary - you can use feature.properties.correct_answer
 				htmlString = htmlString + "<div id=answer" + feature.properties.id + " hidden>1</div>";
 				htmlString = htmlString + "</div>";
-				return L.marker(latlng).bindPopup(htmlString);
+				//return L.marker(latlng);
+				L.marker(latlng).addTo(mymap).on('click', function(e){
+					document.getElementById("questionDiv").innerHTML = htmlString;
+				});
+				//return L.marker(latlng).bindPopup(htmlString);
 			},
+		}).addTo(mymap);
+	mymap.fitBounds(QuizPointLayer.getBounds());
+}
+
+
+function loadFormDiv(formData){
+	var formJSON = JSON.parse(formData);
+	QuizPointLayer = L.geoJson(formJSON,
+	{
+		onEachFeature: function (feature,layer){
+			feature.on('click', function (e){
+				alert("git into onEachFeature!");
+				document.getElementById("questionDiv").innerHTML =  "<input type='radio' name='answer' id ='"+feature.properties.answer_1+"_1'/>"+feature.properties.answer_1+"<br>";
+			});
+		},
+		// use point to layer to create the points
+		pointToLayer: function (feature, latlng)
+		{
+			alert("onEachFeature!");
+			return L.marker(latlng);
+			//document.getElementById("questionDiv").innerHTML = htmlString;
+		},
 	}).addTo(mymap);
 	mymap.fitBounds(QuizPointLayer.getBounds());
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
+function onFeatureClick(){
+	document.getElementById("questionDiv").innerHTML =  "<input type='radio' name='answer' id ='"+feature.properties.answer_1+"_1'/>"+feature.properties.answer_1+"<br>";
+}
 
 
 

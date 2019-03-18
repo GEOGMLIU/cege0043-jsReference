@@ -18,8 +18,8 @@ function loadW3HTML() {
 }
 
 function quizStartup(){
-	alert("quizStartup!");
-	loadQuizPoint();
+	//alert("quizStartup!");
+	//loadQuizPoint();
 }
 
 function questionStartup(){
