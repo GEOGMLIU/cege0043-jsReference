@@ -81,10 +81,12 @@ function loadFormData(formData) {
              	htmlString = htmlString + "<div id=answer" + feature.properties.id + " hidden>" + feature.properties.correct_answer+ "</div>";
              	htmlString = htmlString + "</div>";
 				//return L.marker(latlng);
+				/*
 				L.marker(latlng).addTo(mymap).on('click', function(e){
 					document.getElementById("questionDiv").innerHTML = htmlString;
 				});
-				//return L.marker(latlng).bindPopup(htmlString);
+				*/
+				return L.marker(latlng).bindPopup(htmlString);
 			},
 		}).addTo(mymap);
 	mymap.fitBounds(QuizPointLayer.getBounds());
