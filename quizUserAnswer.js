@@ -8,7 +8,7 @@ function checkAnswer(questionID) {
  	for (var i=1; i < 5; i++) {   
  		if (document.getElementById("answer_"+i).checked){    
  			answerSelected = i;   
- 			}   
+ 		}   
  		if ((document.getElementById("answer_"+i).checked) && (i == answer)) { 
  			alert ("Well done");      
  			correctAnswer = true;   
@@ -17,10 +17,20 @@ function checkAnswer(questionID) {
  	if (correctAnswer === false) {   
  		// they didn't get it right   
  		alert("Better luck next time");  
- } 
+ 	} 
 
- // now close the popup   mymap.closePopup();  
- 
- // the code to upload the answer to the server would go here  // call an AJAX routine using the data  // the answerSelected variable holds the number of the answer     //that the user picked 
- 
+ 	// now close the popup   
+ 	mymap.closePopup();  
+
+ 	// the code to upload the answer to the server would go here  
+ 	// call an AJAX routine using the data  
+ 	// the answerSelected variable holds the number of the answer     
+ 	//that the user picked 
+ 	var question_id = questionID;
+	var correct_answer = answer;
+	// now get the radio button values
+	var answer_selected=answerSelected;
+	var postString = "&question_id="+ question_id +"&answer_selected="+answer_selected+"&correct_answer="+correct_answer;
+	//alert (postString);
+	processAnswer(postString);
 }
