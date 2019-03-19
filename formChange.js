@@ -1,8 +1,8 @@
 var QuizPointLayer;
 var xhrFormData;
 var ptMarkerBlue=L.AwesomeMarkers.icon({
-	   icon:'play',
-	   markerColor:'blue'});
+	icon:'play',
+	markerColor:'blue'});
 
 
 //automatically change latlng when the user clicked on map
@@ -92,7 +92,46 @@ function loadFormData(formData) {
 			},
 		}).addTo(mymap);
 	mymap.fitBounds(QuizPointLayer.getBounds());
+	closestFormPoint();
 }
+
+
+function closestFormPoint() {  
+	alert("heyyyyyyy");
+	// take the leaflet formdata layer  
+	// go through each point one by one  
+	// and measure the distance to Warren Street  
+	// for the closest point show the pop up of that point  
+	var minDistance = 100000000000;  
+	var closestFormPoint = 0; 
+	// for this example, use the latitude/longitude of warren street  
+	// in your assignment replace this with the user's location  
+	//alert(userlat,userlng);
+	//var userlat = 51.524048;  
+	//var userlng = -0.139924;  
+	
+	QuizPointLayer.eachLayer(function(layer) 
+	{   
+		var distance = calculateDistance(userlat, 
+			userlng,layer.getLatLng().lat, layer.getLatLng().lng,  'K');
+		if (distance < minDistance){    
+			minDistance = distance;    
+			closestFormPoint = layer.feature.properties.id;   
+		} 
+
+	});  
+ 	// for this to be a proximity alert, the minDistance must be   
+ 	// closer than a given distance - you can check that here  
+ 	// using an if statement 
+
+	// show the popup for the closest point  
+	QuizPointLayer.eachLayer(function(layer) {   
+		if (layer.feature.properties.id == closestFormPoint){    
+			layer.openPopup();   
+		}  
+	}); 
+	
+} 
 
 
 
