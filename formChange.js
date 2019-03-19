@@ -1,6 +1,8 @@
 var QuizPointLayer;
 var xhrFormData;
-
+var ptMarkerBlue=L.AwesomeMarkers.icon({
+	   icon:'play',
+	   markerColor:'blue'});
 
 
 //automatically change latlng when the user clicked on map
@@ -86,7 +88,7 @@ function loadFormData(formData) {
 					document.getElementById("questionDiv").innerHTML = htmlString;
 				});
 				*/
-				return L.marker(latlng).bindPopup(htmlString);
+				return L.marker(latlng, {icon:ptMarkerBlue}).bindPopup(htmlString);
 			},
 		}).addTo(mymap);
 	mymap.fitBounds(QuizPointLayer.getBounds());

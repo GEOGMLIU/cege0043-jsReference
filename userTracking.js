@@ -1,7 +1,11 @@
 var userMarker;
+var userMarkerRed=L.AwesomeMarkers.icon({
+	   icon:'play',
+	   markerColor:'red'});
 
 function trackLocation() 
 {
+	//alert("user tracking!");
 	if (navigator.geolocation) {
 		navigator.geolocation.watchPosition(showPosition);
 	} else {
@@ -14,7 +18,7 @@ function showPosition(position)
 	{
 		mymap.removeLayer(userMarker);
 	}
-	userMarker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(mymap).bindPopup("<b>You were here at: </b>" + position.coords.latitude + ',' + position.coords.longitude);
+	userMarker = L.marker([position.coords.latitude, position.coords.longitude],{icon:userMarkerRed}).addTo(mymap).bindPopup("<b>You were here at: </b>" + position.coords.latitude + ',' + position.coords.longitude);
 	
 
 	//getDistance();

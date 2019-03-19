@@ -1,5 +1,5 @@
 function trackAndCircle(){
-	//trackLocation();
+	
 	//addPointLinePoly();
 	//getEarthquakes();
 	
@@ -18,7 +18,8 @@ function loadW3HTML() {
 }
 
 function quizStartup(){
-	alert("quizStartup!");
+	//alert("quizStartup!");
+	trackLocation();
 	loadQuizPoint();
 }
 
