@@ -1,7 +1,4 @@
 var userMarker;
-var userMarkerRed=L.AwesomeMarkers.icon({
-	   icon:'play',
-	   markerColor:'red'});
 var userlat;
 var userlng;
 
@@ -21,7 +18,7 @@ function showPosition(position)
 	{
 		mymap.removeLayer(userMarker);
 	}
-	userMarker = L.marker([position.coords.latitude, position.coords.longitude],{icon:userMarkerRed}).addTo(mymap).bindPopup("<b>You were here at: </b>" + position.coords.latitude + ',' + position.coords.longitude);
+	userMarker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(mymap).bindPopup("<b>You were here at: </b>" + position.coords.latitude + ',' + position.coords.longitude);
 	userlat = position.coords.latitude;
 	userlng = position.coords.longitude;
 	//alert(userlat,userlng);

@@ -97,19 +97,12 @@ function loadFormData(formData) {
 
 
 function closestFormPoint() {  
-	alert("heyyyyyyy");
 	// take the leaflet formdata layer  
 	// go through each point one by one  
 	// and measure the distance to Warren Street  
 	// for the closest point show the pop up of that point  
 	var minDistance = 100000000000;  
 	var closestFormPoint = 0; 
-	// for this example, use the latitude/longitude of warren street  
-	// in your assignment replace this with the user's location  
-	//alert(userlat,userlng);
-	//var userlat = 51.524048;  
-	//var userlng = -0.139924;  
-	
 	QuizPointLayer.eachLayer(function(layer) 
 	{   
 		var distance = calculateDistance(userlat, 
