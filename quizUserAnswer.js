@@ -1,3 +1,5 @@
+var xhrCorrectNum;
+var xhrUserRanking;
 var wrongMarker=L.AwesomeMarkers.icon({
 	icon:'play',
 	markerColor:'red'});
@@ -38,7 +40,7 @@ function checkAnswer(questionID) {
 	// now get the radio button values
 	var answer_selected=answerSelected;
 	var postString = "&question_id="+ question_id +"&answer_selected="+answer_selected+"&correct_answer="+correct_answer;
-	alert (postString);
+	//alert (postString);
 
 	//the code to change matching icon colours
 	//the colour depending on whether answer was right or wrong
@@ -48,14 +50,43 @@ function checkAnswer(questionID) {
 			if (correctAnswer===true) {
 				layer.setIcon(layer.options.icon=correctMarker);  
 			}    
-			 else{
-			 	layer.setIcon(layer.options.icon=wrongMarker);  
-			 }
+			else{
+				layer.setIcon(layer.options.icon=wrongMarker);  
+			}
 		}  
 	}); 
 	processAnswer(postString);
+	showRanking();
 }
 
-function changeMarkerColour(){
-	
+function showRanking(){
+	xhrCorrectNum = new XMLHttpRequest();
+	var url = "http://developer.cege.ucl.ac.uk:"+httpPortNumber;
+	url = url + "/getCorrectAnsNum/"+httpPortNumber;
+	//alert(url);
+	xhrCorrectNum.open("GET", url, true);
+	xhrCorrectNum.onreadystatechange = ansNumResponse;
+	xhrCorrectNum.send();
+}
+
+function ansNumResponse(){
+	console.log("ansNumResponse");
+	if (xhrCorrectNum.readyState == 4) {
+		//[{"array_to_json":[{"num_questions":11}]}]
+		//var correctNumData = '{"array_to_json":['+ '{"num_questions":10}]}';
+		// once the data is ready, process the data
+		var correctNumString = xhrCorrectNum.responseText;
+
+		//the code is to convert string into JSON format array
+		//in order to get the num_questions
+		var correctNumData="";
+		for (var i = 1; i <correctNumString.length-1; i++) {
+			correctNumData=correctNumData+correctNumString[i];
+		}
+		var ansNumJSON = JSON.parse(correctNumData);
+		alert("You have answered "+ ansNumJSON.array_to_json[0].num_questions + " questions correctly.");
+	}
+}
+function showCorrectNum(){
+
 }

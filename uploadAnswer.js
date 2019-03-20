@@ -35,7 +35,7 @@ function processAnswer(postString) {
 	postString = "port_id=" + httpPortNumber + postString;
 	console.log(postString);
 	var url = 'http://developer.cege.ucl.ac.uk:'+ httpPortNumber + "/uploadAnswer";
-	alert(url);
+	//alert(url);
 	quizclient.open('POST',url,true);
 	quizclient.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	quizclient.onreadystatechange = userAnswerUploaded;

@@ -88,18 +88,18 @@ function startDataUpload() {
 		}
 		var postString = "question_title="+ question_title +"&question_text="+question_text+"&answer_1="+answer_1
 		+"&answer_2="+answer_2+"&answer_3="+answer_3+"&answer_4="+answer_4+"&correct_answer="+correct_answer+"&latitude="+ latitude+"&longitude="+longitude;
-		alert (postString);
+		//alert (postString);
 		processData(postString);
 	}
 }
 
 
 function processData(postString) {
-	alert("processData1");
+	//alert("processData1");
 	questionclient = new XMLHttpRequest();
 	postString = postString + "&port_id=" + httpPortNumber;
 	var url = 'http://developer.cege.ucl.ac.uk:'+ httpPortNumber + "/uploadQuestion";
-	alert(url);
+	//alert(url);
 	questionclient.open('POST',url,true);
 	//questionclient.open('POST','http://developer.cege.ucl.ac.uk:30289/reflectData',true);
 	questionclient.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -112,7 +112,7 @@ function dataUploaded() {
 	// this function listens out for the server to say that the data is ready - i.e. has state 4
 	if (questionclient.readyState == 4) {
 		// change the DIV to show the response
-		alert(questionclient.responseText);
+		//alert(questionclient.responseText);
 		document.getElementById("dataUploadResult").innerHTML = questionclient.responseText;
 	}
 }

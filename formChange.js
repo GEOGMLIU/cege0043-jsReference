@@ -16,13 +16,13 @@ function changeLatlng(){
 function loadQuizPoint() 
 {
 	getPort();
-	alert("Quiz Points data will be loaded");
+	//alert("Quiz Points data will be loaded");
 	startFormDataLoad();
 }
 
 function removeQuizPoint() 
 {
-	alert("Quiz Points data will be removed");
+	//alert("Quiz Points data will be removed");
 	mymap.removeLayer(QuizPointLayer);
 }	
 
@@ -32,7 +32,7 @@ function startFormDataLoad() {
 	url = url + "/getQuizPoints/"+httpPortNumber;
 	//url = url + "/getGeoJSON/formdata/geom/"+httpPortNumber;
 	//url = url + "/getGeoJSON/london_poi/geom";
-	alert(url);
+	//alert(url);
 	xhrFormData.open("GET", url, true);
 	xhrFormData.onreadystatechange = formDataResponse;
 	xhrFormData.send();
