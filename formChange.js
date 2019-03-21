@@ -95,7 +95,6 @@ function loadFormData(formData) {
 	closestFormPoint();
 }
 
-
 function closestFormPoint() {  
 	// take the leaflet formdata layer  
 	// go through each point one by one  
@@ -105,13 +104,16 @@ function closestFormPoint() {
 	var closestFormPoint = 0; 
 	QuizPointLayer.eachLayer(function(layer) 
 	{   
+		//alert(userlat,userlng);
 		var distance = calculateDistance(userlat, 
 			userlng,layer.getLatLng().lat, layer.getLatLng().lng,  'K');
+		//alert(distance);
 		if (distance < minDistance){    
 			minDistance = distance;    
-			closestFormPoint = layer.feature.properties.id;   
+			closestFormPoint = layer.feature.properties.id; 
+			//alert(closestFormPoint);
 		} 
-
+		
 	});  
  	// for this to be a proximity alert, the minDistance must be   
  	// closer than a given distance - you can check that here  
@@ -119,7 +121,9 @@ function closestFormPoint() {
 
 	// show the popup for the closest point  
 	QuizPointLayer.eachLayer(function(layer) {   
+		//alert(layer.feature.properties.id);
 		if (layer.feature.properties.id == closestFormPoint){    
+			//alert("hey3");
 			layer.openPopup();   
 		}  
 	}); 

@@ -8,24 +8,72 @@ function trackLocation()
 	//alert("user tracking!");
 	if (navigator.geolocation) {
 		navigator.geolocation.watchPosition(showPosition);
-	} else {
-		document.getElementById('showLocation').innerHTML = "Geolocation is not supported by this browser.";
+	} 
+	else {
+		//document.getElementById('showLocation').innerHTML = "Geolocation is not supported by this browser.";
+		alert("Geolocation is not supported by this browser.");
 	}
 }
+
+//
 function showPosition(position) 
 {
 	if (userMarker)
 	{
-		mymap.removeLayer(userMarker);
+		if(calculateDistance(userlat,userlng,position.coords.latitude, position.coords.longitude,  'K')>=10){
+			mymap.removeLayer(userMarker);
+			userlat = position.coords.latitude;
+			userlng = position.coords.longitude;
+			closestFormPoint();
+		}
 	}
-	userMarker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(mymap).bindPopup("<b>You were here at: </b>" + position.coords.latitude + ',' + position.coords.longitude);
-	userlat = position.coords.latitude;
-	userlng = position.coords.longitude;
-	//alert(userlat,userlng);
-	//getDistance();
-
+	/*
+	if (userMarker)
+	{
+		mymap.removeLayer(userMarker);
+	}	*/
+	else{
+		userMarker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(mymap).bindPopup("<b>You were here at: </b>" + position.coords.latitude + ',' + position.coords.longitude);
+		userlat = position.coords.latitude;
+		userlng = position.coords.longitude;
+		closestFormPoint();
+	}
 }
 
+function closestFormPoint() {  
+	// take the leaflet formdata layer  
+	// go through each point one by one  
+	// and measure the distance to Warren Street  
+	// for the closest point show the pop up of that point  
+	var minDistance = 100000000000;  
+	var closestFormPoint = 0; 
+	QuizPointLayer.eachLayer(function(layer) 
+	{   
+		alert(userlat,userlng);
+		var distance = calculateDistance(userlat, 
+			userlng,layer.getLatLng().lat, layer.getLatLng().lng,  'K');
+		//alert(distance);
+		if (distance < minDistance){    
+			minDistance = distance;    
+			closestFormPoint = layer.feature.properties.id; 
+			//alert(closestFormPoint);
+		} 
+		
+	});  
+ 	// for this to be a proximity alert, the minDistance must be   
+ 	// closer than a given distance - you can check that here  
+ 	// using an if statement 
+
+	// show the popup for the closest point  
+	QuizPointLayer.eachLayer(function(layer) {   
+		//alert(layer.feature.properties.id);
+		if (layer.feature.properties.id == closestFormPoint){    
+			//alert("hey3");
+			layer.openPopup();   
+		}  
+	}); 
+	
+} 
 
 
 function getDistance() 
