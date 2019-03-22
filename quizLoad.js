@@ -127,7 +127,6 @@ function showRanking(){
 
 
 function ansNumResponse(){
-	console.log("ansNumResponse");
 	if (xhrCorrectNum.readyState == 4) {
 		// once the data is ready, process the data
 		var correctNumString = xhrCorrectNum.responseText;
@@ -138,14 +137,12 @@ function ansNumResponse(){
 		for (var i = 1; i <correctNumString.length-1; i++) {
 			correctNumData=correctNumData+correctNumString[i];
 		}
-		//console.log(correctNumString);
 		var ansNumJSON = JSON.parse(correctNumData);
 		alert("You have answered "+ ansNumJSON.array_to_json[0].num_questions + " questions correctly.");
 	}
 }
 
 function rankingResponse(){
-	console.log("ansNumResponse");
 	if (xhrUserRanking.readyState == 4) {
 		// once the data is ready, process the data
 		var rankingString = xhrUserRanking.responseText;

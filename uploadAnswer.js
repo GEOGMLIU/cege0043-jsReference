@@ -15,7 +15,6 @@ var correctMarker=L.AwesomeMarkers.icon({
 function processAnswer(postString) {
 	quizclient = new XMLHttpRequest();
 	postString = "port_id=" + httpPortNumber + postString;
-	console.log(postString);
 	var url = 'http://developer.cege.ucl.ac.uk:'+ httpPortNumber + "/uploadAnswer";
 	quizclient.open('POST',url,true);
 	quizclient.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -78,7 +77,6 @@ function checkAnswer(questionID) {
 	//the code to change matching icon colours
 	//the colour depending on whether answer was right or wrong
 	QuizPointLayer.eachLayer(function(layer) {   
-		console.log(layer.feature.properties.id);
 		if (layer.feature.properties.id == question_id){
 			if (correctAnswer===true) {
 				layer.setIcon(layer.options.icon=correctMarker);  
