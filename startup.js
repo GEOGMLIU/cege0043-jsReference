@@ -1,28 +1,13 @@
-/*
-function trackAndCircle(){
-	
-	//addPointLinePoly();
-	//getEarthquakes();
-	
-	getPort();
-	loadW3HTML();	
-}
-
-function startup(){
-	document.addEventListener('DOMContentLoaded', function(){
-		trackAndCircle();
-	}, false);
-}
-*/
-function loadW3HTML() {
-	w3.includeHTML();
-}
-
+//startup functions for quiz App
 function quizStartup(){
 	//alert("quizStartup!");
-	getPort();
-	trackLocation();
-	loadQuizPoint();
+	document.addEventListener('DOMContentLoaded', function(){
+		getPort();
+		// automatically get user location  when the quiz App starts 
+		trackLocation();
+		// Quiz points load automatically when the quiz App starts 
+		startQuizLoad();
+	}, false);
 }
 
 
@@ -33,4 +18,8 @@ function questionStartup(){
 		loadW3HTML();	
 		popupClickLocation();
 	}, false);
+}
+
+function loadW3HTML() {
+	w3.includeHTML();
 }

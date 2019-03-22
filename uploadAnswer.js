@@ -1,6 +1,7 @@
+// the global variables that hold the different requests
 var quizclient;
-var xhrCorrectNum;
-var xhrUserRanking;
+//custom markers that are used to representative of the answered questions;
+//the colour depens on it is a correct or wrong answer.
 var wrongMarker=L.AwesomeMarkers.icon({
 	icon:'play',
 	markerColor:'red'});
@@ -8,7 +9,9 @@ var correctMarker=L.AwesomeMarkers.icon({
 	icon:'play',
 	markerColor:'green'});
 
-
+//the following methods adapted from here: 
+//https://moodle-1819.ucl.ac.uk/mod/folder/view.php?id=1025047
+//accessed 15th March 2019
 function processAnswer(postString) {
 	quizclient = new XMLHttpRequest();
 	postString = "port_id=" + httpPortNumber + postString;
@@ -20,7 +23,8 @@ function processAnswer(postString) {
 	quizclient.send(postString);
 }
 
-// create the code to wait for the response from the data server, and process the response once it is received
+// create the code to wait for the response from the data server, 
+//and process the response once it is received
 function userAnswerUploaded() {
 	// this function listens out for the server to say that the data is ready - i.e. has state 4
 	if (quizclient.readyState == 4) {
@@ -31,6 +35,9 @@ function userAnswerUploaded() {
 	}
 }
 
+//the code to check if user's given answer is right or not
+//and call the method to alert how many questions the user has anwered correctly by far(might be the same question)
+//and call the method to upload user's answers
 function checkAnswer(questionID) {  
 	// get the correct answer from the hidden div  
 	// NB - do this BEFORE you close the pop-up as when you close the pop-up the DIV is destroyed  
@@ -82,60 +89,4 @@ function checkAnswer(questionID) {
 		}  
 	}); 
 	processAnswer(postString);
-	//showCorrectNum();
-}
-
-function showCorrectNum(){
-	xhrCorrectNum = new XMLHttpRequest();
-	var url = "http://developer.cege.ucl.ac.uk:"+httpPortNumber;
-	url = url + "/getCorrectAnsNum/"+httpPortNumber;
-	//alert(url);
-	xhrCorrectNum.open("GET", url, true);
-	xhrCorrectNum.onreadystatechange = ansNumResponse;
-	xhrCorrectNum.send();
-}
-
-function ansNumResponse(){
-	console.log("ansNumResponse");
-	if (xhrCorrectNum.readyState == 4) {
-		// once the data is ready, process the data
-		var correctNumString = xhrCorrectNum.responseText;
-
-		//the code is to convert string into JSON format array
-		//in order to get the num_questions
-		var correctNumData="";
-		for (var i = 1; i <correctNumString.length-1; i++) {
-			correctNumData=correctNumData+correctNumString[i];
-		}
-		//console.log(correctNumString);
-		var ansNumJSON = JSON.parse(correctNumData);
-		alert("You have answered "+ ansNumJSON.array_to_json[0].num_questions + " questions correctly.");
-	}
-}
-
-function showRanking(){
-	xhrUserRanking = new XMLHttpRequest();
-	var url = "http://developer.cege.ucl.ac.uk:"+httpPortNumber;
-	url = url + "/getRanking/"+httpPortNumber;
-	//alert(url);
-	xhrUserRanking.open("GET", url, true);
-	xhrUserRanking.onreadystatechange = rankingResponse;
-	xhrUserRanking.send();
-}
-
-function rankingResponse(){
-	console.log("ansNumResponse");
-	if (xhrUserRanking.readyState == 4) {
-		// once the data is ready, process the data
-		var rankingString = xhrUserRanking.responseText;
-
-		//the code is to convert string into JSON format array
-		//in order to get the rank
-		var rankingData="";
-		for (var i = 1; i <rankingString.length-1; i++) {
-			rankingData=rankingData+rankingString[i];
-		}
-		var rankingJSON = JSON.parse(rankingData);
-		alert("You ranking is: "+ rankingJSON.array_to_json[0].rank + ".");
-	}
 }

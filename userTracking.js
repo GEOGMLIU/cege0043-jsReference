@@ -1,8 +1,13 @@
+//global variable for storing the user current location Marker
 var userMarker;
+//global variables so that can use the user current location in the other function
 var userlat;
 var userlng;
 
-
+//the method for tracking user location
+//code adapted from here: 
+//https://moodle-1819.ucl.ac.uk/course/view.php?id=1330&section=5
+//accessed 16th Jan 2019
 function trackLocation() 
 {
 	//alert("user tracking!");
@@ -15,23 +20,26 @@ function trackLocation()
 	}
 }
 
-//
+//show the current location and
+//call the function so that the closest quiz can popup automatically
+//code adapted from here: 
+//https://moodle-1819.ucl.ac.uk/course/view.php?id=1330&section=5
+//accessed 16th Jan 2019
 function showPosition(position) 
 {
 	if (userMarker)
 	{
-		if(calculateDistance(userlat,userlng,position.coords.latitude, position.coords.longitude,  'K')>=10){
+		//the refresh rate depends on moving distance
+		//avoiding updating too frequent
+		if(calculateDistance(userlat,userlng,position.coords.latitude, position.coords.longitude,  'K')>=0.01){
 			mymap.removeLayer(userMarker);
 			userlat = position.coords.latitude;
 			userlng = position.coords.longitude;
 			closestFormPoint();
 		}
 	}
-	/*
-	if (userMarker)
-	{
-		mymap.removeLayer(userMarker);
-	}	*/
+	//the marker will not update
+	//unless the user move 10 meters away from the last spot
 	else{
 		userMarker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(mymap).bindPopup("<b>You were here at: </b>" + position.coords.latitude + ',' + position.coords.longitude);
 		userlat = position.coords.latitude;
@@ -40,6 +48,9 @@ function showPosition(position)
 	}
 }
 
+//code adapted from
+//https://moodle-1819.ucl.ac.uk/mod/folder/view.php?id=1025047
+//accessed 20th March 2019
 function closestFormPoint() {  
 	// take the leaflet formdata layer  
 	// go through each point one by one  
@@ -75,7 +86,29 @@ function closestFormPoint() {
 	
 } 
 
+//calculate distance between two points
+// code adapted from 
+//https://www.htmlgoodies.com/beyond/javascript/calculate-the-distance-between-two-points-inyour-web-apps.html
+function calculateDistance(lat1, lon1, lat2, lon2, unit) 
+{
+	var radlat1 = Math.PI * lat1/180;
+	var radlat2 = Math.PI * lat2/180;
+	var radlon1 = Math.PI * lon1/180;
+	var radlon2 = Math.PI * lon2/180;
+	var theta = lon1-lon2;
+	var radtheta = Math.PI * theta/180;
+	var subAngle = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+	subAngle = Math.acos(subAngle);
+	subAngle = subAngle * 180/Math.PI; // convert the degree value returned by acos back to degrees from radians
+	dist = (subAngle/360) * 2 * Math.PI * 3956; // ((subtended angle in degrees)/360) * 2 * pi * radius )
+	// where radius of the earth is 3956 miles
+	if (unit=="K") { dist = dist * 1.609344 ;} // convert miles to km
+	if (unit=="N") { dist = dist * 0.8684 ;} // convert miles to nautical miles
+	return dist;
+}
 
+
+/*
 function getDistance() 
 {
 	//alert('getting distance');
@@ -108,27 +141,9 @@ function getDistanceFromPoint(position)
 	}
 	else{
 		alert("hey! /n You're out of controlled now! :)");
-	}*/
+	}
 }
 
-// code adapted from https://www.htmlgoodies.com/beyond/javascript/calculate-the-distance-between-two-points-inyour-web-apps.html
-function calculateDistance(lat1, lon1, lat2, lon2, unit) 
-{
-	var radlat1 = Math.PI * lat1/180;
-	var radlat2 = Math.PI * lat2/180;
-	var radlon1 = Math.PI * lon1/180;
-	var radlon2 = Math.PI * lon2/180;
-	var theta = lon1-lon2;
-	var radtheta = Math.PI * theta/180;
-	var subAngle = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-	subAngle = Math.acos(subAngle);
-	subAngle = subAngle * 180/Math.PI; // convert the degree value returned by acos back to degrees from radians
-	dist = (subAngle/360) * 2 * Math.PI * 3956; // ((subtended angle in degrees)/360) * 2 * pi * radius )
-	// where radius of the earth is 3956 miles
-	if (unit=="K") { dist = dist * 1.609344 ;} // convert miles to km
-	if (unit=="N") { dist = dist * 0.8684 ;} // convert miles to nautical miles
-	return dist;
-}
 
 function getDistanceFromMultiplePoints(position)
 {
@@ -145,3 +160,4 @@ function getDistanceFromMultiplePoints(position)
 	}
 	alert("Earthquake: " + closetQuake + " is distance " + minDist + "away");
 }
+*/

@@ -3,6 +3,7 @@
 var QuestionPointLayer;
 //createavariablethatwillholdtheXMLHttpRequest()
 var xhrQuestion;
+
 //automatically change latlng when the user clicked on map
 function changeLatlng(){
 	alert("Getting the latlng.");
