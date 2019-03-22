@@ -7,7 +7,7 @@ function getPort(){
 		var doc = parser.parseFromString(portXhr.responseText, "application/xml");
 		httpPortNumber= doc.getElementsByTagName("node-port-http").item(0).textContent;
 		httpsPortNumber= doc.getElementsByTagName("node-port-https").item(0).textContent;
-		console.log("Port : " + httpPortNumber);
+		//console.log("Port : " + httpPortNumber);
 	});
 
 	// depending on whether we are in a browser or on a phone

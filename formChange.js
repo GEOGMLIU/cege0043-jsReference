@@ -5,56 +5,7 @@ var ptMarkerBlue=L.AwesomeMarkers.icon({
 	markerColor:'blue'});
 
 
-//automatically change latlng when the user clicked on map
-function changeLatlng(){
-	alert("getting latlng!");
-	//enter latlng and format numbers to show 6 decimal places 
-	document.getElementById("latitude").value=clickinglat.toFixed(6);
-	document.getElementById("longitude").value=clickinglng.toFixed(6);
-}
 
-function loadQuizPoint() 
-{
-	getPort();
-	//alert("Quiz Points data will be loaded");
-	startFormDataLoad();
-}
-
-function removeQuizPoint() 
-{
-	//alert("Quiz Points data will be removed");
-	mymap.removeLayer(QuizPointLayer);
-}	
-
-function startFormDataLoad() {
-	xhrFormData = new XMLHttpRequest();
-	var url = "http://developer.cege.ucl.ac.uk:"+httpPortNumber;
-	url = url + "/getQuizPoints/"+httpPortNumber;
-	//url = url + "/getGeoJSON/formdata/geom/"+httpPortNumber;
-	//url = url + "/getGeoJSON/london_poi/geom";
-	//alert(url);
-	xhrFormData.open("GET", url, true);
-	xhrFormData.onreadystatechange = formDataResponse;
-	xhrFormData.send();
-
-}
-
-function formDataResponse(){
-	if (xhrFormData.readyState == 4) {
-	// once the data is ready, process the data
-	var formData = xhrFormData.responseText;
-	loadFormData(formData);
-		//document.getElementById("divForm").innerHTML = formData;
-	}
-}
-/*
-function loadForm(formData){
-	//alert("formDataResponsed");
-	var formJSON = JSON.parse(formData);
-	QuizPointLayer = L.geoJson(formJSON).addTo(mymap);
-	mymap.fitBounds(QuizPointLayer.getBounds());
-}
-*/
 // keep the layer global so that we can automatically pop up a
 // pop-up menu on a point if necessary
 // we can also use this to determine distance for the proximity alert

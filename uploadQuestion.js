@@ -1,21 +1,19 @@
-var questionclient; // the global variable that holds the request
+// the global variable that holds the request
+var questionclient; 
 
-
-function startDataUpload() {
-	getPort();
-	//alert ("start data upload");
+//this function is set to get a vaild question
+//and then upload it 
+//the following methods adapted from here: 
+//https://moodle-1819.ucl.ac.uk/mod/folder/view.php?id=1025065
+//accessed 1st March 2019
+function startQuestionUpload() {
+	//if the question is invaild, break and stop uploading process
 	completeform:{
+		//some parameters for storing the data
 		var question_title = document.getElementById("question_title").value;
 		var question_text = document.getElementById("question_text").value;
 
 		var answer_1 = document.getElementById("answer_1").value;
-		/*
-		if(answer_1)
-			console.log("not NULL");
-		else
-			console.log("NULL");
-		console.log(answer_1);
-		*/
 		var answer_2 = document.getElementById("answer_2").value;
 		var answer_3 = document.getElementById("answer_3").value;
 		var answer_4 = document.getElementById("answer_4").value;
@@ -24,7 +22,7 @@ function startDataUpload() {
 		var latitude = document.getElementById("latitude").value;
 		var longitude = document.getElementById("longitude").value;
 	
-		//all the required fields cannot be full
+		//all the required fields cannot be empty
 		if (question_title){
 		}
 		else{			
@@ -61,6 +59,7 @@ function startDataUpload() {
 			alert("Please type in the answer_4!");
 			break completeform;
 		}
+
 		//need to type in a number between 1-4 for the correct answer field
 		if(correct_answer==1||correct_answer==2||correct_answer==3||correct_answer==4){
 		}
@@ -75,10 +74,9 @@ function startDataUpload() {
 			alert("Please enter the vaild latitude and longitude or click on the map to get the latlng!");
 			break completeform;
 		}
+
 		//RegExp to find if there is any character NOT between -180 and 180)
 		var regDec=/^(-?\d+\.)?-?\d+$/;
-		console.log(regDec.test(latitude));
-		console.log(regDec.test(longitude));
 
 		if(regDec.test(latitude)&&regDec.test(longitude)){
 		}
@@ -86,33 +84,30 @@ function startDataUpload() {
 			alert("Please enter the vaild latitude and longitude or click on the map to get the latlng!");
 			break completeform;
 		}
+		//a string holding the context which are waiting to be posted
 		var postString = "question_title="+ question_title +"&question_text="+question_text+"&answer_1="+answer_1
 		+"&answer_2="+answer_2+"&answer_3="+answer_3+"&answer_4="+answer_4+"&correct_answer="+correct_answer+"&latitude="+ latitude+"&longitude="+longitude;
-		//alert (postString);
-		processData(postString);
+		processQuestion(postString);
 	}
 }
 
 
-function processData(postString) {
-	//alert("processData1");
+function processQuestion(postString) {
 	questionclient = new XMLHttpRequest();
 	postString = postString + "&port_id=" + httpPortNumber;
 	var url = 'http://developer.cege.ucl.ac.uk:'+ httpPortNumber + "/uploadQuestion";
-	//alert(url);
 	questionclient.open('POST',url,true);
-	//questionclient.open('POST','http://developer.cege.ucl.ac.uk:30289/reflectData',true);
 	questionclient.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	questionclient.onreadystatechange = dataUploaded;
+	questionclient.onreadystatechange = questionUploaded;
 	questionclient.send(postString);
 }
 
-// create the code to wait for the response from the data server, and process the response once it is received
-function dataUploaded() {
+// create the code to wait for the response from the data server, 
+//and process the response once it is received
+function questionUploaded() {
 	// this function listens out for the server to say that the data is ready - i.e. has state 4
 	if (questionclient.readyState == 4) {
 		// change the DIV to show the response
-		//alert(questionclient.responseText);
 		document.getElementById("dataUploadResult").innerHTML = questionclient.responseText;
 	}
 }
